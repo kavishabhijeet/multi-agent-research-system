@@ -1,4 +1,4 @@
-from langchain.agents import create_agent
+from langchain.agents import create_react_agent, AgentExecutor
 from langchain_mistralai import ChatMistralAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
@@ -12,15 +12,15 @@ llm = ChatMistralAI(model_name="mistral-small-latest",temperature=0.2)
 
 # 1st Agent
 def build_serach_agent():
-    return create_agent(
+    return create_react_agent(
         model = llm,
-        tool = [web_search]
+        tools = [web_search]
     )
 # 2nd Agent
 def build_reader_agent():
-    create_agent(
+    create_react_agent(
         model = llm,
-        tool = [scrap_url]
+        tools = [scrap_url]
     )
 
 # Writer Chain
