@@ -208,6 +208,15 @@ html, body, [data-testid="stAppViewContainer"] {
     white-space: pre-wrap;
     word-break: break-word;
 }
+.panel-body h1, .panel-body h2, .panel-body h3 {
+    font-family: 'Syne', sans-serif;
+    color: #e8e6f0;
+    font-weight: 700;
+    margin: 1.2rem 0 0.4rem;
+}
+.panel-body h1 { font-size: 1.3rem; border-bottom: 1px solid rgba(124,92,191,0.3); padding-bottom: 0.3rem; }
+.panel-body h2 { font-size: 1.1rem; color: #b49aef; }
+.panel-body h3 { font-size: 0.95rem; color: #1ec4a0; }
 
 /* ── Score badge ── */
 .score-badge {
@@ -384,20 +393,22 @@ if st.session_state.results:
     # ── Tabs ──
     tab1, tab2, tab3 = st.tabs(["📋 Full Report", "🔍 Raw Research", "🔎 Critic Feedback"])
 
-    # Tab 1 — Report
-    with tab1:
-        st.markdown(f"""
-        <div class="result-panel teal">
-            <div class="panel-header teal">✍ Final Research Report</div>
-           <div class="panel-body">{r.get("report","No report generated.").replace(chr(10), "<br>")}</div>
-        </div>""", unsafe_allow_html=True)
+# Tab 1 — Report 
+with tab1:
+    st.markdown(f"""
+    <div class="result-panel teal">
+        <div class="panel-header teal">✍ Final Research Report</div>
+    </div>""", unsafe_allow_html=True)
 
-        st.download_button(
-            label="⬇ Download Report (.txt)",
-            data=r.get("report", ""),
-            file_name=f"research_report_{topic[:30].replace(' ','_')}.txt",
-            mime="text/plain"
-        )
+    # ✅ Use st.markdown so ## headings render as real bold headings
+    st.markdown(r.get("report", "No report generated."))
+
+    st.download_button(
+        label="⬇ Download Report (.txt)",
+        data=r.get("report", ""),
+        file_name=f"research_report_{topic[:30].replace(' ','_')}.txt",
+        mime="text/plain"
+    )
 
     # Tab 2 — Raw research
     with tab2:
