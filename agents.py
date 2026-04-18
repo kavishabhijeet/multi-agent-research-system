@@ -5,9 +5,10 @@ from langchain_core.prompts import PromptTemplate
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from tools import web_search, scrap_url
+import os 
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), ".env"))
 
 llm = ChatMistralAI(
     model_name="mistral-small-latest",
@@ -16,7 +17,6 @@ llm = ChatMistralAI(
     timeout=60          
 )
 
-# Required ReAct prompt template for classic LangChain
 react_prompt = PromptTemplate.from_template("""Answer the following questions as best you can. You have access to the following tools:
 
 {tools}

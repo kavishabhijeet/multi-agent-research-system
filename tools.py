@@ -1,10 +1,11 @@
+import os
 from dotenv import load_dotenv
-load_dotenv()
+load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), ".env"))
 from langchain.tools import tool
 import requests
 from bs4 import BeautifulSoup
 from tavily import TavilyClient
-import os
+
 
 tavily = TavilyClient(api_key=os.getenv("TAVILY_API_KEY"))
 
